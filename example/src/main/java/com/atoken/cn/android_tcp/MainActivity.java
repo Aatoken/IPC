@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         btn_second=(Button)findViewById(R.id.btn_second);
         UserManager.mUerName="main";
         tv_main=(TextView)findViewById(R.id.tv_main);
-        tv_main.setText(UserManager.mUerName.toString());
+        tv_main.setText(UserManager.mUerName);
 
 
 
