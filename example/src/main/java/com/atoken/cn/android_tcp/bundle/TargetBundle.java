@@ -1,4 +1,4 @@
-package com.atoken.cn.android_tcp.Bundle;
+package com.atoken.cn.android_tcp.bundle;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +10,7 @@ import com.atoken.cn.android_tcp.R;
  * Created by Aatoken on 2018/6/11.
  */
 
-public class Target extends AppCompatActivity {
+public class TargetBundle extends AppCompatActivity {
 
     TextView tv_getInfo;
     @Override
