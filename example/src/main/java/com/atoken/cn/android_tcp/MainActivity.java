@@ -68,27 +68,20 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
                 User user = new User(1, 24, "android");
-
                 ObjectOutputStream out = null;
-
                 try {
                     File file = new File(Environment.getExternalStorageDirectory(), "handler.txt");
-
                     out = new ObjectOutputStream(new
                             FileOutputStream(file));
                     out.writeObject(user);
                     Log.d(SHAREFILE, "persist user:" + user);
-
                     out.close();
                 } catch (
                         IOException e)
-
                 {
                     e.printStackTrace();
                 }
-
             }
         }).start();
     }
