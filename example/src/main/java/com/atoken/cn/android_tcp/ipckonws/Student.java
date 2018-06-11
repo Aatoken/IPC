@@ -3,22 +3,20 @@ package com.atoken.cn.android_tcp.ipckonws;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Aatoken on 2018/6/10.
- */
+
 
 public class Student implements Parcelable {
     public int stuId;
     public int stuAge;
     public String stuName;
-    public Book book;
+    public Son son;
 
 
     protected Student(Parcel in) {
         stuId = in.readInt();
         stuAge = in.readInt();
         stuName = in.readString();
-        book = in.readParcelable(Book.class.getClassLoader());
+        son = in.readParcelable(Son.class.getClassLoader());
     }
 
     public static final Creator<Student> CREATOR = new Creator<Student>() {
@@ -33,6 +31,16 @@ public class Student implements Parcelable {
         }
     };
 
+    public Student() {
+    }
+
+    public Student(int stuId, int stuAge, String stuName, Son son) {
+        this.stuId = stuId;
+        this.stuAge = stuAge;
+        this.stuName = stuName;
+        this.son = son;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -43,6 +51,16 @@ public class Student implements Parcelable {
         dest.writeInt(stuId);
         dest.writeInt(stuAge);
         dest.writeString(stuName);
-        dest.writeParcelable(book, flags);
+        dest.writeParcelable(son, flags);
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "stuId=" + stuId +
+                ", stuAge=" + stuAge +
+                ", stuName='" + stuName + '\'' +
+                ", son=" + son +
+                '}';
     }
 }

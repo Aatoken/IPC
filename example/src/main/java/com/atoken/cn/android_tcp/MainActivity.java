@@ -1,11 +1,14 @@
 package com.atoken.cn.android_tcp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.atoken.cn.android_tcp.Bundle.Target;
+import com.atoken.cn.android_tcp.activity.SecondActivity;
 import com.atoken.cn.android_tcp.activity.UserManager;
 import com.atoken.cn.android_tcp.ipckonws.User;
 
@@ -33,32 +36,55 @@ public class MainActivity extends AppCompatActivity {
         //demo1();
 
         //2.序列化 Serializable
-        demo2();
+        //demo2();
 
 
         btn_second.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //1.
-                //Intent intent=new Intent(MainActivity.this, SecondActivity.class);
-                //startActivity(intent);
 
-                //2.
-                try {
-                    //反序列化
-                    ObjectInputStream inputStream = new ObjectInputStream(
-                            new FileInputStream("cache.txt"));
-                    User newuser = (User) inputStream.readObject();
-                    inputStream.close();
+                //1.页面跳转
+               //toSecond();
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                //2.反序列化
+                //writeobject();
+
+                //3.bundle传值
+                postbundle();
 
             }
         });
+    }
+
+
+
+    private void postbundle() {
+        Bundle bundle=new Bundle();
+        bundle.putString("data","Data form MainActivity!");
+        Intent intent=new Intent();
+        intent.setClass(MainActivity.this, Target.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    private void writeobject() {
+        try {
+            //反序列化
+            ObjectInputStream inputStream = new ObjectInputStream(
+                    new FileInputStream("cache.txt"));
+            User newuser = (User) inputStream.readObject();
+            inputStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void toSecond() {
+        Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+        startActivity(intent);
     }
 
     private void demo2() {

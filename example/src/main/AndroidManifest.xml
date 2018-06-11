@@ -20,6 +20,11 @@
         <activity android:name=".activity.SecondActivity"
             android:process=":remote"></activity>
 
+
+        <activity android:name=".Bundle.Target"
+            android:process=":remote"></activity>
+       
+
     </application>
 
 </manifest>

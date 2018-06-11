@@ -7,24 +7,24 @@ import android.os.Parcelable;
  * Created by Aatoken on 2018/6/10.
  */
 
-public class Book implements Parcelable {
+public class Son implements Parcelable {
     public int bookId;
     public String bookName;
 
-    protected Book(Parcel in) {
+    protected Son(Parcel in) {
         bookId = in.readInt();
         bookName = in.readString();
     }
 
-    public static final Creator<Book> CREATOR = new Creator<Book>() {
+    public static final Creator<Son> CREATOR = new Creator<Son>() {
         @Override
-        public Book createFromParcel(Parcel in) {
-            return new Book(in);
+        public Son createFromParcel(Parcel in) {
+            return new Son(in);
         }
 
         @Override
-        public Book[] newArray(int size) {
-            return new Book[size];
+        public Son[] newArray(int size) {
+            return new Son[size];
         }
     };
 
