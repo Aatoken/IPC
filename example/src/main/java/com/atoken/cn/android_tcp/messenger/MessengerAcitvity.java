@@ -40,7 +40,7 @@ public class MessengerAcitvity extends AppCompatActivity {
         public void onServiceConnected(ComponentName name, IBinder service) {
 
             mService=new Messenger(service);
-            Message msg=Message.obtain(null,MessengerType.MSG_FROM_CLIENT);
+            Message msg=Message.obtain(null, MessageType.MSG_FROM_CLIENT);
             Bundle bundle=new Bundle();
             bundle.putString("msg","this is clinet...");
             msg.setData(bundle);
@@ -75,7 +75,7 @@ public class MessengerAcitvity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             switch (msg.what)
             {
-                case MessengerType.MSG_FROM_SERVICE:
+                case MessageType.MSG_FROM_SERVICE:
                     String reply = msg.getData().getString("reply");
                     Log.d(TAG,reply);
                     break;

@@ -31,13 +31,13 @@ public class MessengerService extends Service {
         public void handleMessage(Message msg) {
 
             switch (msg.what) {
-                case MessengerType.MSG_FROM_CLIENT:
+                case MessageType.MSG_FROM_CLIENT:
                     String data = msg.getData().getString("msg");
                     Log.d(TAG, data);
 
                     //接收到服务端信息之后返回
                     Messenger client = msg.replyTo;
-                    Message replyMsg = Message.obtain(null, MessengerType.MSG_FROM_SERVICE);
+                    Message replyMsg = Message.obtain(null, MessageType.MSG_FROM_SERVICE);
                     Bundle bundle = new Bundle();
                     bundle.putString("reply", "this is service...");
                     replyMsg.setData(bundle);
