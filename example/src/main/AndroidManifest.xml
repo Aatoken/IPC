@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".messenger.MessengerAcitvity">
+        <activity android:name=".aidl.BookManagerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -32,6 +32,9 @@
 
         <service android:name=".messenger.MessengerService"
             android:process=":remote"></service>
+        <service android:name=".aidl.BookManagerService"
+                 android:process=":remote"></service>
+
 
     </application>
 
