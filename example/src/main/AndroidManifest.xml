@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".aidl.BookManagerActivity">
+        <activity android:name=".provider.ProviderActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -35,6 +35,11 @@
         <service android:name=".aidl.BookManagerService"
                  android:process=":remote"></service>
 
+<!-- android:permission="com.atoken.PROVIDER"-->
+        <provider
+            android:authorities="com.atoken.BookProvider"
+            android:process=":remote"
+            android:name=".provider.BookProvider"></provider>
 
     </application>
 
