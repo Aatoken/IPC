@@ -53,6 +53,14 @@ public class BookManagerActivity extends AppCompatActivity {
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
+
+
+            //设置死亡代理
+            try {
+                service.linkToDeath(mDeathRecipient,0);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
@@ -111,4 +119,19 @@ public class BookManagerActivity extends AppCompatActivity {
         super.onDestroy();
 
     }
+
+
+    private IBinder.DeathRecipient mDeathRecipient=new IBinder.DeathRecipient() {
+        @Override
+        public void binderDied() {
+            if(mBookManager!=null)
+            {
+                return;
+            }
+            mBookManager.asBinder().unlinkToDeath(mDeathRecipient,0);
+            mBookManager=null;
+        }
+    };
+
+
 }
