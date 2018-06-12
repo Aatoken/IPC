@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -21,7 +22,8 @@ public class BookManagerService extends Service {
     private static final String TAG = "BMS";
 
     private CopyOnWriteArrayList<Book> mBookList = new CopyOnWriteArrayList<>();
-    private CopyOnWriteArrayList<INewBookArrivedListener> mListeners = new CopyOnWriteArrayList<>();
+    //private CopyOnWriteArrayList<INewBookArrivedListener> mListeners = new CopyOnWriteArrayList<>();
+    private RemoteCallbackList<INewBookArrivedListener> mListeners = new RemoteCallbackList<>();
 
     //能够保证在高并发的情况下只有一个线程能够访问这个属性值。（类似我们之前所说的volatile）
     private AtomicBoolean mIsServiceDestory=new AtomicBoolean(false);
@@ -41,24 +43,15 @@ public class BookManagerService extends Service {
 
         @Override
         public void registListence(INewBookArrivedListener listener) throws RemoteException {
-            if(!mListeners.contains(listener))
-            {
-                mListeners.add(listener);
-                Log.d(TAG,"订阅成功！");
-            }else {
-                Log.d(TAG,"已经订阅过了！");
-            }
+          mListeners.register(listener);
+            Log.d(TAG,"regist sucess!");
         }
 
         @Override
         public void unregistListence(INewBookArrivedListener listener) throws RemoteException {
-            if(mListeners.contains(listener))
-            {
-                mListeners.remove(listener);
-                Log.d(TAG,"注销订阅！");
-            }else {
-                Log.d(TAG,"没有订阅，无法注销！");
-            }
+            mListeners.unregister(listener);
+            Log.d(TAG,"unregist sucess!");
+            Log.d(TAG,"current listence:"+mListeners.beginBroadcast());
         }
     };
 
@@ -76,12 +69,16 @@ public class BookManagerService extends Service {
         mBookList.add(book);
         Log.d(TAG,"onNewBookArrivad,notify listences:"+mBookList.size());
 
-        for (int i=0;i<mListeners.size();i++)
+        final int N=mListeners.beginBroadcast();
+        for (int i=0;i<N;i++)
         {
-            INewBookArrivedListener listener = mListeners.get(i);
-            Log.d(TAG,"onNewBookArrivad,notify listences:"+listener);
-            listener.OnNewBookArrived(book);
+            INewBookArrivedListener listener=mListeners.getBroadcastItem(i);
+            if(listener!=null)
+            {
+                listener.OnNewBookArrived(book);
+            }
         }
+        mListeners.finishBroadcast();
 
     }
 
