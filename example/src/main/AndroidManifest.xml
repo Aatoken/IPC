@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.atoken.cn.android_tcp">
-<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -12,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".provider.ProviderActivity">
+        <activity android:name=".socket.TcpClientActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -20,27 +23,36 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.SecondActivity"
+        <activity
+            android:name=".activity.SecondActivity"
             android:process=":remote"></activity>
 
 
-        <activity android:name=".bundle.TargetBundle"
-                  android:process=":remote"></activity>
+        <activity
+            android:name=".bundle.TargetBundle"
+            android:process=":remote"></activity>
 
-        <activity android:name=".sharefile.TargetFile"
-                  android:process=":remote"></activity>
+        <activity
+            android:name=".sharefile.TargetFile"
+            android:process=":remote"></activity>
 
-        <service android:name=".messenger.MessengerService"
+        <service
+            android:name=".messenger.MessengerService"
             android:process=":remote"></service>
-        <service android:name=".aidl.BookManagerService"
-                 android:process=":remote"></service>
+        <service
+            android:name=".aidl.BookManagerService"
+            android:process=":remote"></service>
 
-<!-- android:permission="com.atoken.PROVIDER"-->
+        <!-- android:permission="com.atoken.PROVIDER"-->
         <provider
+            android:name=".provider.BookProvider"
             android:authorities="com.atoken.BookProvider"
-            android:process=":remote"
-            android:name=".provider.BookProvider"></provider>
+            android:process=":remote"></provider>
 
+        <service android:name=".socket.TcpServerService"
+                 android:process=":remote">
+
+        </service>
     </application>
 
 </manifest>
