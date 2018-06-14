@@ -15,6 +15,8 @@ public class BinderPoolImpl extends IBinderPool.Stub  {
     public IBinder queryBinder(int binderCode) throws RemoteException {
 
         IBinder binder = null;
+        //swtich()变量类型只能是int、short、char、byte和enum类型
+        // （JDK 1.7 之后，类型也可以是String了）
         switch (binderCode) {
             case BinderType.BINDER_NONE:
                 break;
